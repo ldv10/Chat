@@ -1,0 +1,110 @@
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+$(function() { 
+    $('#form').on('submit', function(e) { 
+        e.preventDefault(); 
+        $.post("http://52.88.26.79:7000/", $("#form").serialize(), function(data) {
+		});
+		$("#usuario").val('');
+		$("#mensaje").val('');
+    });
+});
+$(function() {
+		$("#carga").click( function(){
+			$.getJSON( "http://52.88.26.79:7000").done( function( data ) {
+				var x = "";
+				for (var i = 0; i<data.length;i++){
+						x= x + data[i].usuario +" : "+data[i].mensaje+"\n";
+				} 
+				$( "#men" ).text(x);
+				$( "#men" ).html($( "#men" ).html().replace(/\n/g,'<br/>'));
+			});
+        }
+      );
+});
+</script>
+<style>
+
+
+
+body{
+	background-color: #ccffcc;
+	}
+
+input{
+	width: 390px;
+}
+
+button{
+	width: 390px;
+}
+
+#entrada{
+	position:absolute;
+	left: 500px;
+	width: 390px;
+	text-align: center;
+
+}
+
+#entrada2{
+	position: absolute;
+	width: 390px;
+	height: 100px;
+	text-align: center;
+	left: 500;
+}
+label{
+	font-size: 200%;
+	text-align:center;
+}
+
+#id{
+	position: absolute;
+	left: 500;
+}
+
+#carga{
+	position: absolute;
+	left: 500;
+}
+
+p{
+	position: absolute;
+	left: 500;
+}
+
+
+</style>
+
+<div>
+<h1 align="center" >Chat</h1>
+</div>
+<p> Leonel Guillen - 14451 </p>
+<br>
+<form id="form" action="http://52.88.26.79:7000/" method="post">
+
+<div class="form-group">
+  <input id="entrada" type="text" placeholder="usuario" name="usuario" id="usuario" class="form-control" >
+</div>
+<br><br>
+<div class="form-group">
+  <input id="entrada2" type="text" placeholder="Mensaje" name="mensaje" id="mensaje" class="form-control">
+  <br><br><br><br><br><br><br>
+  <input id="id" type="submit" value="Enviar">
+</div>
+<br>
+</form>
+<button id="carga">Cargar Chat</button>
+<br>
+<div class="page-header">
+<h2 align="center" >Enviados</h2>
+</div>
+
+<div class="pre-scrollable">
+	<blockquote  class="blockquote">
+		<p id="men" class="mb-0"></p>
+	</blockquote >
+</div>
